@@ -325,15 +325,11 @@ fieldset {
 }
 /******************************************************/
 
-/*
+
 .body-home{
-	background-image: url("../img/fondo_home2.jpg");
-	background-repeat: no-repeat;
-	background-position:center;
-	background-size: cover;
-	background-attachment: fixed;
+	background-color:#393e46 ;
 }
-*/
+
 .menu{
 	list-style: none;
 }

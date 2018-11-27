@@ -67,7 +67,8 @@ html(lang='en')
               | Settings
         a.sidenav-trigger(href='#', data-target='nav-mobile')
           i.material-icons menu
-    
+    form(action='/api/images', method='post', enctype='multipart/form-data')
+     input(name='image', type='file')
     main.home
       form.secc-post(method='POST', name='savePost', action='/post')
         .input-field.col.s6

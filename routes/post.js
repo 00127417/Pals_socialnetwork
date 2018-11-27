@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     postModel = require('../models/Post');
+
 router.get('/', function (req, res) {
     postModel.find({}, function (err, posts) {
         if (err) {
