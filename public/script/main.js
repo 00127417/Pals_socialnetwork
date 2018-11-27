@@ -11,11 +11,26 @@ let app = {
                     posts.innerHTML = data.reduce((cadena, element) => {
                         return cadena +
                             ` 
-                            <article class="post-article">
-                            <h3>${element.owner}</h3>
-                <p class="info-post">${element.post}</p>
-                <button class="btn-ice"><i class="far fa-snowflake"></i></button>
-            </article>
+
+                            <div class="col s12 m8 offset-m2 l6 offset-l3">
+                            <div class="card-panel grey lighten-5 z-depth-1">
+                              <div class="row valign-wrapper">
+                                <div class="col s2">
+                                  <img src="profilepic.jpg " alt="" class="circle responsive-img smallpic"> <!-- notice the "circle" class -->
+                                </div>
+                                <div class="col s12">
+                                  <h4 class="teal-text ">
+                                  ${element.owner}
+                                  </h4>
+                                  <span class="black-text">
+                                    ${element.post}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+
                             `
                     }, "");
         
