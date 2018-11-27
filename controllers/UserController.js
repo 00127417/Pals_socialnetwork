@@ -11,6 +11,9 @@ AuthController.create = function (req, res, next) {
 AuthController.store = async function (req, res) {
     //obteniendo los datos del usuario
     let user = {
+        name: req.body.name,
+        lastName: req.body.lastName,
+        username: req.body.username,
         email: req.body.email,
         password: req.body.password
     }
@@ -18,11 +21,14 @@ AuthController.store = async function (req, res) {
     await User.create(user, (error, user) => {
         if (error) // si se produce algun error
             //Devolvemos una vista con los mensajes de error
-            return res.render('signup', { err: error, email: user.email });
+            return res.render('signup', { err: 'Alguno de los campos esta vacio o el correo esta en uso', email: user.email });
         else {
             //Almacenamos los datos de la consulta en el objeto data
             let data = {
                 userId: user._id.toString(),
+                name: user.name,
+                lastName: user.lastName,
+                username: user.username,
                 email: user.email,
                 password: user.password
             }
@@ -38,15 +44,20 @@ AuthController.store = async function (req, res) {
                 req.session.user = JSON.stringify(data);
                 console.log(req.session.user);
                 //nos dirigira a la pagina donde se encuentra el perfil del usuario
-                return res.redirect('/users/profile');
+                //window.sessionStorage.currentUser = data.userId
+                return res.redirect('/users/home');
             });
         }
     })
 
 };
 
+
 AuthController.profile = function (req, res) {
     return res.render('profile');
+}
+AuthController.home = function (req, res) {
+    return res.render('home');
 }
 
 AuthController.signin = function (req, res,next) {
@@ -59,6 +70,9 @@ AuthController.signin = function (req, res,next) {
         }
         else {
                 data.userId= user._id.toString(),
+                data.name= user.name,
+                data.lastName=user.lastName,
+                data.username=user.username,
                 data.email= user.email,
                 data.password=user.password
             
@@ -71,7 +85,7 @@ AuthController.signin = function (req, res,next) {
                 //parseamos el objeto a cadena
                 req.session.user = JSON.stringify(data);
                 //si es correcto nos dirigira al perfil del usuario que esta ingresando.
-                return res.redirect('/users/profile');
+                return res.redirect('/users/home');
             });
 
         }
