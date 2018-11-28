@@ -11,64 +11,79 @@
   const MongoStore = require('connect-mongo')(session);
   //Credenciales de nuestra base de datos
   const {mongodb}=require('./configs/keys');
+  var bodyParser = require('body-parser');
 
-  var indexRouter = require('./routes/index');
-  var usersRouter = require('./routes/users');
-  var postRouter = require('./routes/post');
+/* connect to database */
 
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/dbphotogallery');
+require("./models/Photo");
 
-  var app = express();
-  /*Conexion con mongodb*/
-  require('./configs/database');
-  // view engine setup
-  app.set('views', path.join(__dirname, 'views'));
-  app.set('view engine', 'pug');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var postRouter = require('./routes/post');
+var imgRouter = require('./routes/images');
 
-  //middlewares
-  //configuración de la sesion.
-  app.use(session({
-  secret:"Hello World!!!",
-  resave: true, // para alamcenar el objeto session
-  saveUninitialized: true, // inicializar si el objeto esta vacio
-  //para almacenar la sesion en la base de datos
-  store: new MongoStore({
-      url: mongodb.URI,
-      autoReconnect: true
-  })
-  }));
+var app = express();
+/*Conexion con mongodb*/
+require('./configs/database');
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-  app.use(logger('dev'));
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
-  app.use(cookieParser());
-  app.use(express.static(path.join(__dirname, 'public')));
-
-  /*Agremos la sesion a las variables locales de la app*/
-
-  app.use((req,res,next)=>{
+//middlewares
+//configuración de la sesion.
+app.use(session({
+secret:"Hello World!!!",
+resave: true, // para alamcenar el objeto session
+saveUninitialized: true, // inicializar si el objeto esta vacio
+//para almacenar la sesion en la base de datos
+store: new MongoStore({
+    url: mongodb.URI,
+    autoReconnect: true
+})
+}));
+app.use((req,res,next)=>{
   app.locals.session = req.session;
   next();
   });
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-  //routes
-  app.use('/', indexRouter); // ruta para el index
-  app.use('/users', usersRouter); // rutas para los usuarios
-  app.use('/post',postRouter);
-  // catch 404 and forward to error handler
-  app.use(function(req, res, next) {
-  next(createError(404));
-  });
+/*Agremos la sesion a las variables locales de la app*/
 
 
-  // error handler
-  app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-  });
+//routes
+app.use('/', indexRouter); // ruta para el index
+app.use('/users', usersRouter); // rutas para los usuarios
+app.use('/post',postRouter);
+app.use('/images',imgRouter);
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-  module.exports = app;
+
+
+  
+// error handler
+app.use(function(err, req, res, next) {
+// set locals, only providing error in development
+res.locals.message = err.message;
+res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+// render the error page
+res.status(err.status || 500);
+res.render('error');
+});
+
+module.exports = app;

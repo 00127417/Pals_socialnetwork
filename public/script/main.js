@@ -16,7 +16,7 @@ let app = {
                             <div class="card-panel grey lighten-5 z-depth-1">
                               <div class="row valign-wrapper">
                                 <div class="col s2">
-                                  <img src="profilepic.jpg " alt="" class="circle responsive-img smallpic"> <!-- notice the "circle" class -->
+                                  <img src="/img/profileholder.png " alt="" class="circle responsive-img smallpic"> <!-- notice the "circle" class -->
                                 </div>
                                 <div class="col s12">
                                   <h4 class="teal-text ">
