@@ -11,19 +11,17 @@
   const MongoStore = require('connect-mongo')(session);
   //Credenciales de nuestra base de datos
   const {mongodb}=require('./configs/keys');
-  var bodyParser = require('body-parser');
 
 /* connect to database */
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/dbphotogallery');
-require("./models/Photo");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var postRouter = require('./routes/post');
-var imgRouter = require('./routes/images');
+var profile = require('./routes/user');
+var imgRouter = require('./routes/img');
 
 var app = express();
 /*Conexion con mongodb*/
@@ -44,13 +42,8 @@ store: new MongoStore({
     autoReconnect: true
 })
 }));
-app.use((req,res,next)=>{
-  app.locals.session = req.session;
-  next();
-  });
+
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -58,13 +51,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /*Agremos la sesion a las variables locales de la app*/
 
-
+app.use((req,res,next)=>{
+  app.locals.session = req.session;
+  next();
+  });
 
 //routes
 app.use('/', indexRouter); // ruta para el index
 app.use('/users', usersRouter); // rutas para los usuarios
 app.use('/post',postRouter);
-app.use('/images',imgRouter);
+app.use('/user',profile);
+app.use('/img',imgRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
