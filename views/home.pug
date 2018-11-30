@@ -52,7 +52,7 @@ html
               i.material-icons.right person
               | Me
           li
-            a(href='#')
+            a(href='/settings')
               i.material-icons.right settings
               | Settings
           li
@@ -74,9 +74,9 @@ html
           
           .file-field.input-field
             .btn.btn-img
-              span File
+              span IMAGE
               input(type='file',name='archivo')
             .file-path-wrapper
-              input#imagen.file-path(type='text', name='title')
+              input#imagen.file-path(type='text', name='title',required)
             input#btn-post.waves-effect.waves-light.btn-large.blue-grey(name='btn-post', value='Post', type='submit')
       section.posts

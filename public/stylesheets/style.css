@@ -4,7 +4,6 @@
 }
 
 div {
-  color: red;
 }
 
 .ini-page {
@@ -557,31 +556,8 @@ body {
    
 }
 
-#banner h1 {
-     color: #fff;
-     font-size: 4em;
-     font-weight: 400;
-     font-family: 'Passion One', cursive;
-     margin: 0;
- }
 
-        
-#banner p {
-     color: rgba(255, 255, 255, 0.85);
-     font-size: 1.2em;
-     font-weight: 300;
-}
 
-#banner a {
-    color: rgba(255, 255, 255, 0.75);
-    text-decoration: none;
-    border-bottom: 1px dotted;
-}
-
-#banner a:hover {
-    color: #FFF;
-    border: none;
-}
 
 
 
@@ -629,19 +605,13 @@ body {
     background-color: whitesmoke;
 }
 .formUpdate {
-    display: flex;
-    align-items: stretch;
     justify-content: center;
-    padding-top: 52px;
-    flex-wrap: wrap;
-    width: 90%;
-    max-width: 80em;
-    margin: 0 auto;
+    width: 80%;
+    margin: 52px auto;
+    background-color: #FFF;
+    
 }
 
-.formUpdate > div {
-  background-color: #1b1b1f;
-}
 
 .submit {
   display: flex;
@@ -649,12 +619,9 @@ body {
 }
 .item {
     margin: 0 1em 2em 1em;
-    border-radius: 28px;
     text-align: center;
-    width: 29%;
-    grid-template-columns: 50% 50% ;
-    padding-bottom: 32px;
-    padding-top: 32px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
  .item > label {
     color: #666666;

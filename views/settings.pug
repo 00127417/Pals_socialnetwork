@@ -4,21 +4,59 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(http-equiv='X-UA-Compatible', content='ie=edge')
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet')
-    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.3.1/css/all.css', integrity='sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU', crossorigin='anonymous')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style.1.css')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.4.2/css/all.css', integrity='sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns', crossorigin='anonymous')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    link(href='/stylesheets/materialize.css', type='text/css', rel='stylesheet', media='screen,projection')
+    link(href='/stylesheets/style.css', type='text/css', rel='stylesheet', media='screen,projection')
+    script(src='http://code.jquery.com/jquery-latest.js')
+    script(src='/script/materialize.js')
+    script(src='/script/init.js')
     title Settings
   body
-    section#banner(data-video='img/banner')
-      .inner
-        header
-          h1 Settings
-      video(autoplay='', loop='')
-        source(src='img/banner.mp4', type='video/mp4')
-        source(src='img/banner.webm', type='video/webm')
+    nav.blue-grey(role='navigation')
+      .nav-wrapper.container
+        a#logo-container.brand-logo(href='#')
+          img.responsive-img.navlogo(src='/img/twitter_header_photo_1.png', alt='')
+        ul.right.hide-on-med-and-down
+          li
+            a(href='/users/home')
+              i.material-icons.right subject
+              | Home
+          li
+            a(href='/user')
+              i.material-icons.right person
+              | Me
+    
+          li
+            a(href='/settings')
+              i.material-icons.right settings
+              | Settings
+          li
+            a(href='/users/logout')
+              i.material-icons.right loyalty
+              | LogOut
+        ul#nav-mobile.sidenav
+          li
+            a(href='/users/home')
+              i.material-icons.right subject
+              | Home
+          li
+            a(href='/user')
+              i.material-icons.right person
+              | Me
+          li
+            a(href='/settings')
+              i.material-icons.right settings
+              | Settings
+          li
+            a(href='/users/logout')
+              i.material-icons.right loyalty
+              | LogOut
+        a.sidenav-trigger(href='#', data-target='nav-mobile')
+          i.material-icons menu
     main#main
       form.formUpdate(method='PUT', action='/settings' name='update')
-        
         .item
           label(for='name') Name
           input(type='text', name='name' placeholder=data.name,required)

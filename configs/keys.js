@@ -1,6 +1,6 @@
 module.exports = {
     mongodb:
     {
-        URI: 'mongodb://localhost:27017/practica' 
+        URI: 'mongodb://KaneKiriEre:Ast@michoZ*17@ds119164.mlab.com:19164/palsdb' 
     }
 }
