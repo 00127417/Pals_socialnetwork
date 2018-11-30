@@ -22,6 +22,7 @@ var usersRouter = require('./routes/users');
 var postRouter = require('./routes/post');
 var profile = require('./routes/user');
 var imgRouter = require('./routes/img');
+var settRouter =require('./routes/settings');
 
 var app = express();
 /*Conexion con mongodb*/
@@ -62,17 +63,14 @@ app.use('/users', usersRouter); // rutas para los usuarios
 app.use('/post',postRouter);
 app.use('/user',profile);
 app.use('/img',imgRouter);
+app.use('/settings',settRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  next(createError(404));
 });
 
 
-
-  
 // error handler
 app.use(function(err, req, res, next) {
 // set locals, only providing error in development

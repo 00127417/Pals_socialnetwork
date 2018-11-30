@@ -64,5 +64,7 @@ let app = {
       loadContent();
 
   }
+  
+  
 };
 window.onload = () => app.init();

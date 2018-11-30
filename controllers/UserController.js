@@ -2,6 +2,7 @@ const mongoose = require('mongoose'); //libreria para el manejo a la conexion de
 const User = require("../models/users"); //modelo usuarios.
 const AuthController = {}; // objeto que tendra la logica de nuestra web
 const bcrypt = require('bcrypt'); //libreria para encriptar
+
 AuthController.login = function (req, res, next) {
     res.render('signin'); //
 }
@@ -91,7 +92,50 @@ AuthController.signin = function (req, res,next) {
         }
     });
 };
+//modificar usuario
+AuthController.update = async function (req, res) {
 
+    var user = {
+        name: req.body.name,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password
+
+    };
+
+    bcrypt.hash(user.password, 10, function (err, hash) {
+
+        if (err) {
+            return next(err);
+        }
+        else {
+            console.log(hash);
+            user.password = hash;
+
+            User.findOneAndUpdate({ username: req.body.username }, user, function (err, old) {
+                if (err) {
+                    res.status(500);
+                    res.json({
+                        ok: false,
+                        err
+                    })
+                } else {
+                    res.json({
+                        ok: true,
+                        old,
+                        user
+                    });
+                }
+            });
+        }
+    })
+
+    console.log('hello ', user.password);
+
+
+
+
+}
 AuthController.logout = function (req, res, next) {
     if (req.session) { //si la session existe
         req.session.destroy(function (err) { // destruimos la sesion
