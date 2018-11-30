@@ -21,17 +21,19 @@ html(lang='en')
         
         .item
           label(for='name') Name
-          input(type='text', name='name' placeholder=data.name)
+          input(type='text', name='name' placeholder=data.name,required)
         .item
           label(for='lastName') LastName
-          input(type='text', name='lastName' placeholder=data.lastName)
+          input(type='text', name='lastName' placeholder=data.lastName,required)
         #hide.item
           label(for='username') Username
-          input(type='text', name='username' placeholder=data.username)
+          input(type='text', name='username' value=data.username)
         .item
           label(for='email') Email
-          input(type='email', name='email' placeholder=data.email)
-        
+          input(type='email', name='email' placeholder=data.email,required)
+        .item
+          label(for='password') Password
+          input(type='password', placeholder='Enter New Password', name='password',required)
         .submit
           button(type='submit') Save changes 
           
